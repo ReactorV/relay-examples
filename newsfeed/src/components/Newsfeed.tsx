@@ -8,33 +8,19 @@ import Story from "./Story";
 const NewsfeedQuery = graphql`
   query NewsfeedQuery {
     topStory {
-      title
-      summary
-      poster {
-        name
-        profilePicture {
-          url
-        }
-      }
-      thumbnail {
-        url
-      }
+      ...StoryFragment
     }
   }
 `;
 
-// eslint-disable-next-line no-empty-pattern
-export default function Newsfeed({}) {
-  const data = useLazyLoadQuery<NewsfeedQueryType>(
-      NewsfeedQuery,
-      {},
-  );
+export default function Newsfeed() {
+  const data = useLazyLoadQuery<NewsfeedQueryType>(NewsfeedQuery, {});
+  //debugger
+  const story = data?.topStories;
 
-  const story = data.topStory;
-  // As before:
   return (
       <div className="newsfeed">
-        <Story story={story} />
+        <Story story={story[0]} />
       </div>
   );
 }
