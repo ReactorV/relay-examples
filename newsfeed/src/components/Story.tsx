@@ -33,13 +33,13 @@ export default function Story({ story }: Props): React.ReactElement {
         StoryFragment,
         story,
     );
-    console.log("data: ", data)
+
   return (
-    <Card>
+    <Card key={data.id}>
       <PosterByline poster={data.poster} />
       <Heading>{data.title}</Heading>
       <Timestamp time={data.createdAt} />
-      <Image image={data.thumbnail} width={400} height={400} />
+      <Image image={data.thumbnail} width={300} height={400} />
       <StorySummary summary={data.summary} />
     </Card>
   );
