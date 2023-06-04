@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useLazyLoadQuery, useFragment } from "react-relay";
+import { PreloadedQuery, useFragment, usePreloadedQuery } from "react-relay";
 import { graphql } from "relay-runtime";
 import Image from "./Image";
 import Timestamp from "./Timestamp";
@@ -8,20 +8,21 @@ import type { PosterDetailsHovercardContentsQuery as QueryType } from "./__gener
 import type { PosterDetailsHovercardContentsBodyFragment$key } from "./__generated__/PosterDetailsHovercardContentsBodyFragment.graphql";
 
 export const PosterDetailsHovercardContentsQuery = graphql`
-  query PosterDetailsHovercardContentsQuery {
-    node(id: "1") {
-      ... on Actor {
-        ...PosterDetailsHovercardContentsBodyFragment
-      }
+    query PosterDetailsHovercardContentsQuery($posterID: ID!) {
+        node(id: $posterID) {
+            ... on Actor {
+                ...PosterDetailsHovercardContentsBodyFragment
+            }
+        }
     }
-  }
 `;
 
-export default function PosterDetailsHovercardContents({}: {}): React.ReactElement {
-  const data = useLazyLoadQuery<QueryType>(
+export default function PosterDetailsHovercardContents({ queryRef }: { queryRef: PreloadedQuery<QueryType> }): React.ReactElement {
+  const data = usePreloadedQuery<QueryType>(
     PosterDetailsHovercardContentsQuery,
-    {}
+      queryRef,
   );
+
   return (
     <div className="posterHovercard">
       <PosterDetailsHovercardContentsBody poster={data.node} />
@@ -31,7 +32,6 @@ export default function PosterDetailsHovercardContents({}: {}): React.ReactEleme
 
 const PosterDetailsHovercardContentsBodyFragment = graphql`
   fragment PosterDetailsHovercardContentsBodyFragment on Actor {
-    id
     name
     joined
     profilePicture {
@@ -46,6 +46,7 @@ function PosterDetailsHovercardContentsBody({
   poster: PosterDetailsHovercardContentsBodyFragment$key;
 }) {
   const data = useFragment(PosterDetailsHovercardContentsBodyFragment, poster);
+    console.log("data PosterDetailsHovercardContentsBody: ", data);
   return (
     <>
       <Image
