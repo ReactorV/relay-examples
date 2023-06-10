@@ -29,7 +29,10 @@ export default function PosterByline({ poster }: Props): React.ReactElement {
   const data = useFragment(PosterBylineFragment, poster)
   const hoverRef = useRef(null);
 
-const [ hovercardQueryRef, loadHovercardQuery] = useQueryLoader<HovercardQueryType>(PosterDetailsHovercardContentsQuery);
+  const [ hovercardQueryRef, loadHovercardQuery] = useQueryLoader<HovercardQueryType>(PosterDetailsHovercardContentsQuery);
+  function onBeginHover() {
+    loadHovercardQuery({ posterID: data.id });
+  }
 
   return (
     <div ref={hoverRef} className="byline">
@@ -40,7 +43,7 @@ const [ hovercardQueryRef, loadHovercardQuery] = useQueryLoader<HovercardQueryTy
         className="byline__image"
       />
       <div className="byline__name">{data.name}</div>
-      <Hovercard targetRef={hoverRef}>
+      <Hovercard targetRef={hoverRef} onBeginHover={onBeginHover}>
         <PosterDetailsHovercardContents queryRef={hovercardQueryRef} />
       </Hovercard>
     </div>

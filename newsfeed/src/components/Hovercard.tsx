@@ -40,6 +40,7 @@ export default function Hovercard({
   if (!hoverState) {
     return null;
   }
+
   return ReactDOM.createPortal(
     <div
       className="hovercard"
