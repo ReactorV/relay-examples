@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<6dd9b5cd73892a5e3fdaf40e5d49c965>>
+ * @generated SignedSource<<e03c8ac24052d20303b50f7b00029c55>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -138,21 +138,10 @@ return {
                 "selections": [
                   {
                     "alias": null,
-                    "args": [
-                      {
-                        "kind": "Literal",
-                        "name": "height",
-                        "value": 60
-                      },
-                      {
-                        "kind": "Literal",
-                        "name": "width",
-                        "value": 60
-                      }
-                    ],
+                    "args": null,
                     "kind": "ScalarField",
                     "name": "url",
-                    "storageKey": "url(height:60,width:60)"
+                    "storageKey": null
                   },
                   (v1/*: any*/)
                 ],
@@ -192,12 +181,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "aebbd0c19babde43569dbd6ea07914e4",
+    "cacheID": "d4254750dbe1fa7724c0f75f87d287f2",
     "id": null,
     "metadata": {},
     "name": "NewsfeedQuery",
     "operationKind": "query",
-    "text": "query NewsfeedQuery {\n  topStories {\n    id\n    ...StoryFragment\n  }\n}\n\nfragment ImageFragment_3XLoCc on Image {\n  url(width: 60, height: 60)\n  altText\n}\n\nfragment ImageFragment_OxVt3 on Image {\n  url(width: 400)\n  altText\n}\n\nfragment PosterBylineFragment on Actor {\n  __isActor: __typename\n  id\n  name\n  profilePicture {\n    ...ImageFragment_3XLoCc\n  }\n}\n\nfragment StoryFragment on Story {\n  title\n  summary\n  createdAt\n  poster {\n    __typename\n    ...PosterBylineFragment\n    id\n  }\n  thumbnail {\n    ...ImageFragment_OxVt3\n  }\n}\n"
+    "text": "query NewsfeedQuery {\n  topStories {\n    id\n    ...StoryFragment\n  }\n}\n\nfragment ImageFragment on Image {\n  url\n  altText\n}\n\nfragment ImageFragment_OxVt3 on Image {\n  url(width: 400)\n  altText\n}\n\nfragment PosterBylineFragment on Actor {\n  __isActor: __typename\n  id\n  name\n  profilePicture {\n    ...ImageFragment\n  }\n}\n\nfragment StoryFragment on Story {\n  title\n  summary\n  createdAt\n  poster {\n    __typename\n    ...PosterBylineFragment\n    id\n  }\n  thumbnail {\n    ...ImageFragment_OxVt3\n  }\n}\n"
   }
 };
 })();
