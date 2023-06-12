@@ -8,6 +8,7 @@ import PosterByline, { type Props as PosterBylineProps } from "./PosterByline";
 import StorySummary from "./StorySummary";
 import Image from "./Image";
 import Timestamp from './Timestamp';
+import StoryCommentsSection from './StoryCommentsSection';
 import type { StoryFragment$key } from './__generated__/StoryFragment.graphql';
 
 const StoryFragment = graphql`
@@ -21,6 +22,7 @@ const StoryFragment = graphql`
         thumbnail {
             ...ImageFragment @arguments(width: 400)
         }
+        ...StoryCommentsSectionFragment
     }
 `;
 
@@ -35,12 +37,13 @@ export default function Story({ story }: Props): React.ReactElement {
     );
 
   return (
-    <Card key={data.id}>
+    <Card>
       <PosterByline poster={data.poster} />
       <Heading>{data.title}</Heading>
       <Timestamp time={data.createdAt} />
       <Image image={data.thumbnail} width={300} height={400} />
       <StorySummary summary={data.summary} />
+        <StoryCommentsSection story={data} />
     </Card>
   );
 }

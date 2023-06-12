@@ -11,10 +11,18 @@ export type Props = {
 };
 
 const StoryCommentsSectionFragment = graphql`
-  fragment StoryCommentsSectionFragment on Story {
-    comments(first: 1) {
+  fragment StoryCommentsSectionFragment on Story
+    @refetchable(queryName: "StoryCommentsSectionPaginationQuery")
+    @argumentDefinitions(
+      cursor: { type: "String" }
+      count: { type: "Int", defaultValue: 3 }
+    )
+  {
+    comments(after: $cursor, first: $count)
+      @connection(key: "StoryCommentsSectionFragment_comments")
+    {
       pageInfo {
-        startCursor
+        hasNextPage
       }
       edges {
         node {
